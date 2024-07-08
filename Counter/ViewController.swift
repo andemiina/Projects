@@ -2,11 +2,11 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    @IBOutlet weak var counterValue: UILabel!
-    @IBOutlet weak var increaseValue: UIButton!
-    @IBOutlet weak var decreaseValue: UIButton!
-    @IBOutlet weak var resetValue: UIButton!
-    @IBOutlet weak var dateInfo: UITextView!
+    @IBOutlet private weak var counterValue: UILabel!
+    @IBOutlet private weak var increaseValue: UIButton!
+    @IBOutlet private weak var decreaseValue: UIButton!
+    @IBOutlet private weak var resetValue: UIButton!
+    @IBOutlet private weak var dateInfo: UITextView!
     
     
     override func viewDidLoad() {
@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     
     private var counter: Int = 0
     
-    let dateFormatter: DateFormatter = {
+    private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .short
         formatter.timeStyle = .medium
@@ -24,7 +24,7 @@ class ViewController: UIViewController {
     }()
     
     
-    @IBAction func increaseValue(_ sender: Any) {
+    @IBAction private func increaseValue(_ sender: Any) {
         let now = dateFormatter.string(from: Date())
         counter += 1
         counterValue.text = "Значение счетчика \(counter)"
@@ -32,7 +32,7 @@ class ViewController: UIViewController {
         
     }
     
-    @IBAction func decreaseValue(_ sender: Any) {
+    @IBAction private func decreaseValue(_ sender: Any) {
         let now = dateFormatter.string(from: Date())
         if counter > 0 {
             counter -= 1
@@ -43,7 +43,7 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBAction func resetValue(_ sender: Any) {
+    @IBAction private func resetValue(_ sender: Any) {
         let now = dateFormatter.string(from: Date())
         counter = 0
         counterValue.text = "Значение счетчика \(counter)"
