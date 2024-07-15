@@ -33,9 +33,20 @@ final class MovieQuizViewController: UIViewController {
     @IBOutlet private var counterLabel: UILabel!
     @IBOutlet private var imageView: UIImageView!
     
+    @IBOutlet weak var yesButton: UIButton!
+    @IBOutlet weak var noButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        textLabel.font = UIFont(name: "YSDisplay-Bold", size: 23)
+        
+        if let customFont = UIFont(name: "YSDisplay-Medium", size: 20) {
+            counterLabel.font = customFont.withSize(20)
+            yesButton.titleLabel?.font = customFont.withSize(20)
+            noButton.titleLabel?.font = customFont.withSize(20)
+        }
+        
         showFirstQuestion()
     }
     
