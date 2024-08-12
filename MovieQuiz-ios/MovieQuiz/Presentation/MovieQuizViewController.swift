@@ -127,7 +127,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             let text = correctAnswers == questionAmount ?
             """
             Поздравляем, вы ответили на 10 из 10!
-            Количество сыгранных квизов: \(String(describing: statisticService.gamesCount))
+            Количество сыгранных квизов: \(String(describing: statisticService!.gamesCount))
             Рекорд: \(String(describing: statisticService!.bestGame.correct))/10 (\(String(describing: statisticService!.bestGame.date.dateTimeString)))
             Средняя точность: \(String(format: "%.2f", statisticService!.totalAccuracy))%
             """ :
