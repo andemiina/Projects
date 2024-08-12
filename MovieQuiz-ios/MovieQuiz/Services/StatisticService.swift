@@ -26,8 +26,9 @@ final class StatisticService {
         set { storage.set(newValue, forKey: Keys.correct.rawValue)}
     }
     
-    init(dateProvider: @escaping () -> Date = {Date()})
-    {self.dateProvider = dateProvider
+    init(dateProvider: @escaping () -> Date = { Date() }
+    ) {
+        self.dateProvider = dateProvider
     }
 }
 
@@ -51,7 +52,7 @@ extension StatisticService: StatisticServiceProtocol {
     
     
     var totalAccuracy: Double {
-        get {Double(storage.integer(forKey: Keys.totalAccuracy.rawValue))}
+        get {storage.double(forKey: Keys.totalAccuracy.rawValue)}
         set {storage.set(newValue, forKey: Keys.totalAccuracy.rawValue)}
     }
     
@@ -66,5 +67,5 @@ extension StatisticService: StatisticServiceProtocol {
             bestGame = currentGame
         }
     }
-    }
+}
 
