@@ -23,18 +23,11 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ohv-Vy-072">
                                         <rect key="frame" x="0.0" y="0.0" width="350" height="23.666666666666668"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tPi-VS-Z34" userLabel="Question Title Label">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Вопрос:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tPi-VS-Z34" userLabel="Question Title Label">
                                                 <rect key="frame" x="0.0" y="0.0" width="314" height="23.666666666666668"/>
                                                 <color key="tintColor" name="YP White (iOS)"/>
-                                                <attributedString key="attributedText">
-                                                    <fragment content="Вопрос:">
-                                                        <attributes>
-                                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                            <font key="NSFont" size="20" name="YSDisplay-Medium"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                </attributedString>
+                                                <fontDescription key="fontDescription" name="YSDisplay-Medium" family="YS Display" pointSize="20"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="El6-Si-Hmi" userLabel="Index Label">
@@ -86,7 +79,6 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="Aaq-a8-ka8"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <color key="tintColor" name="YP Black (iOS)"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="Нет"/>
@@ -118,6 +110,9 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="WCr-xk-euo">
+                                <rect key="frame" x="185" y="412" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="YP Black (iOS)"/>
@@ -126,9 +121,12 @@
                             <constraint firstItem="N4U-YA-0oB" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Ml5-Y8-H08"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="N4U-YA-0oB" secondAttribute="trailing" constant="20" id="RTF-fE-dHh"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="N4U-YA-0oB" secondAttribute="bottom" id="V2N-RM-J8N"/>
+                            <constraint firstItem="WCr-xk-euo" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Zq5-Ov-dlO"/>
+                            <constraint firstItem="WCr-xk-euo" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="w91-Wg-4bm"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="WCr-xk-euo" id="O1T-sy-5iR"/>
                         <outlet property="counterLabel" destination="El6-Si-Hmi" id="DNb-Mw-YKA"/>
                         <outlet property="imageView" destination="EKU-pT-wyY" id="cam-nJ-jgO"/>
                         <outlet property="noButton" destination="hXB-VN-L84" id="gVd-D3-CPy"/>
