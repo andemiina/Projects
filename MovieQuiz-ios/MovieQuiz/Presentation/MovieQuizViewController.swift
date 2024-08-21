@@ -32,6 +32,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         questionFactory.requestNextQuestion()
         showLoadingIndicator()
         questionFactory.loadData()
+        presenter.viewController = self
     }
     
     //MARK: - QuestionFactoryDelegate
@@ -44,30 +45,17 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         currentQuestion = question
         let viewModel = presenter.convert(model: question)
         show(quiz: viewModel)
-//        DispatchQueue.main.async { [weak self] in
-//            self?.show(quiz: viewModel)}
-        
     }
     
     
     //MARK: - Action
     @IBAction private func yesButtonClicked(_ sender: Any) {
-        guard let currentQuestion = currentQuestion else {
-            return
-        }
-        let givenAnswer = true
-        
-        showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
+        presenter.yesButtonClicked()
     }
     
     
     @IBAction private func noButtonClicked(_ sender: Any) {
-        guard let currentQuestion = currentQuestion else {
-            return
-        }
-        let givenAnswer = false
-        
-        showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
+        presenter.noButtonClicked()
     }
     
     //MARK: - Private Funcs
@@ -81,24 +69,16 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             noButton.titleLabel?.font = customFont.withSize(20)
         }
     }
-//    
-//    private func convert(model: QuizQuestion) -> QuizStepViewModel {
-//        return QuizStepViewModel(image: UIImage(data: model.image) ?? UIImage(),
-//                                 question: model.text,
-//                                 questionNumber: "\(currentQuestionIndex + 1)/\(questionAmount)")
-//    }
     
     
     //функция показа индикатора загрузки
     private func showLoadingIndicator() {
-//        activityIndicator.isHidden = false // говорим, что индикатор загрузки не скрыт
         activityIndicator.startAnimating() //включаем анимацию
     }
     
     //функция скрытия индикатора загрузки
     private func hideLoadingIndicator() {
         activityIndicator.stopAnimating()  //выключаем анимацию
-//        activityIndicator.isHidden = true  //говорим, что индикатор загрузки скрыт
     }
     
     //функция, которая показывает алерт в случае ошибки загрущкм данных с сети
@@ -117,7 +97,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
     
     
-    private func show(quiz step: QuizStepViewModel) {
+    func show(quiz step: QuizStepViewModel) {
         resetBorder()
         imageView.image = step.image
         textLabel.text = step.question
@@ -125,7 +105,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
     
    
-    private func showAnswerResult(isCorrect: Bool) {
+    func showAnswerResult(isCorrect: Bool) {
         if isCorrect { // 1
             correctAnswers += 1 // 2
         }
