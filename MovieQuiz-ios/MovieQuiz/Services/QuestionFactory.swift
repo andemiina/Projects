@@ -1,7 +1,7 @@
 
 import Foundation
 
-class QuestionFactory: QuestionFactoryProtocol {
+final class QuestionFactory: QuestionFactoryProtocol {
     
     private var moviesLoader: MoviesLoading
     private weak var delegate: QuestionFactoryDelegate?
@@ -81,25 +81,17 @@ class QuestionFactory: QuestionFactoryProtocol {
             var imageData = Data()
            
            do {
-                imageData = try Data(contentsOf: movie.imageURL)
-            } catch {
-                print("Failed to load image")
-            }
-            
-            do {
                 imageData = try Data(contentsOf: movie.resizedImageURL)
             } catch {
                 print("Failed to load image")
             }
-            
+                      
         
-            let rating = Float(movie.rating) ?? 0
-            
-            let text = "Рейтинг этого фильма больше чем 7?"
-            let correctAnswer = rating > 7
-            
+            let randomRating = Double.random(in: 7.0...9.0)
+            let text = "Рейтинг этого фильма больше чем \(String(format: "%.1f", randomRating))?"
+            let correctAnswer = (Double(movie.rating) ?? 0) > randomRating ? true : false
             let question = QuizQuestion(image: imageData,
-                                         text: text,
+                                        text: text,
                                          correctAnswer: correctAnswer)
             
             DispatchQueue.main.async { [weak self] in

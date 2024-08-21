@@ -3,7 +3,7 @@ import UIKit
 
 
 //класс алерт презентера подписали на протокол
-class AlertPresenter: AlertPresenterProtocol {
+final class AlertPresenter: AlertPresenterProtocol {
     
     weak var delegate: UIViewController?
     

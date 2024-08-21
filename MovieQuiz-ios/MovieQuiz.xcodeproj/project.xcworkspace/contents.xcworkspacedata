@@ -1,58 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workspace
    version = "1.0">
-   <Group
-      location = "group:MovieQuiz"
-      name = "MovieQuiz">
-      <Group
-         location = "group:MovieQuiz"
-         name = "MovieQuiz">
-         <FileRef
-            location = "group:ViewController.swift">
-         </FileRef>
-         <Group
-            location = "group:Assets.xcassets"
-            name = "Assets.xcassets">
-            <Group
-               location = "group:AppIcon.appiconset"
-               name = "AppIcon.appiconset">
-               <FileRef
-                  location = "group:Contents.json">
-               </FileRef>
-            </Group>
-            <Group
-               location = "group:AccentColor.colorset"
-               name = "AccentColor.colorset">
-               <FileRef
-                  location = "group:Contents.json">
-               </FileRef>
-            </Group>
-            <FileRef
-               location = "group:Contents.json">
-            </FileRef>
-         </Group>
-         <Group
-            location = "group:Base.lproj"
-            name = "Base.lproj">
-            <FileRef
-               location = "group:LaunchScreen.storyboard">
-            </FileRef>
-            <FileRef
-               location = "group:Main.storyboard">
-            </FileRef>
-         </Group>
-         <FileRef
-            location = "group:AppDelegate.swift">
-         </FileRef>
-         <FileRef
-            location = "group:Info.plist">
-         </FileRef>
-         <FileRef
-            location = "group:SceneDelegate.swift">
-         </FileRef>
-      </Group>
-      <FileRef
-         location = "group:MovieQuiz.xcodeproj">
-      </FileRef>
-   </Group>
+   <FileRef
+      location = "self:">
+   </FileRef>
 </Workspace>

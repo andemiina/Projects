@@ -9,19 +9,18 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private weak var yesButton: UIButton!
     @IBOutlet private weak var noButton: UIButton!
-    
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
     
     
-    private var currentQuestionIndex = 0
+//    private var currentQuestionIndex = 0
     private var correctAnswers = 0
-    private let questionAmount: Int = 10
-    private var questionFactory: QuestionFactoryProtocol?
+//    private let questionAmount: Int = 10
+    private  lazy var questionFactory: QuestionFactoryProtocol = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
     private var currentQuestion: QuizQuestion?
-    private var alertPresenter: AlertPresenterProtocol?
-    private var statisticService: StatisticServiceProtocol?
-    
+    private lazy var alertPresenter: AlertPresenterProtocol = AlertPresenter(delegate: self)
+    private lazy var statisticService: StatisticServiceProtocol = StatisticService()
+    private let presenter = MovieQuizPresenter()
     
     
     
@@ -29,27 +28,10 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
-        self.questionFactory = questionFactory
-        
+        setupFonts()
         questionFactory.requestNextQuestion()
-        
-        let alertPresenter = AlertPresenter(delegate: self)
-        self.alertPresenter = alertPresenter
-        
-        let statisticService = StatisticService()
-        self.statisticService = statisticService
-        
         showLoadingIndicator()
         questionFactory.loadData()
-        
-        textLabel.font = UIFont(name: "YSDisplay-Bold", size: 23)
-        
-        if let customFont = UIFont(name: "YSDisplay-Medium", size: 20) {
-            counterLabel.font = customFont
-            yesButton.titleLabel?.font = customFont.withSize(20)
-            noButton.titleLabel?.font = customFont.withSize(20)
-        }
     }
     
     //MARK: - QuestionFactoryDelegate
@@ -60,10 +42,10 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         }
         
         currentQuestion = question
-        let viewModel = convert(model: question)
-        
-        DispatchQueue.main.async { [weak self] in
-            self?.show(quiz: viewModel)}
+        let viewModel = presenter.convert(model: question)
+        show(quiz: viewModel)
+//        DispatchQueue.main.async { [weak self] in
+//            self?.show(quiz: viewModel)}
         
     }
     
@@ -88,25 +70,35 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
     }
     
-    
-    private func convert(model: QuizQuestion) -> QuizStepViewModel {
-        return QuizStepViewModel(image: UIImage(data: model.image) ?? UIImage(),
-                                 question: model.text,
-                                 questionNumber: "\(currentQuestionIndex + 1)/\(questionAmount)")
-    }
-    
     //MARK: - Private Funcs
+    
+    private func setupFonts() {
+        textLabel.font = UIFont(name: "YSDisplay-Bold", size: 23)
+        
+        if let customFont = UIFont(name: "YSDisplay-Medium", size: 20) {
+            counterLabel.font = customFont
+            yesButton.titleLabel?.font = customFont.withSize(20)
+            noButton.titleLabel?.font = customFont.withSize(20)
+        }
+    }
+//    
+//    private func convert(model: QuizQuestion) -> QuizStepViewModel {
+//        return QuizStepViewModel(image: UIImage(data: model.image) ?? UIImage(),
+//                                 question: model.text,
+//                                 questionNumber: "\(currentQuestionIndex + 1)/\(questionAmount)")
+//    }
+    
     
     //функция показа индикатора загрузки
     private func showLoadingIndicator() {
-        activityIndicator.isHidden = false // говорим, что индикатор загрузки не скрыт
+//        activityIndicator.isHidden = false // говорим, что индикатор загрузки не скрыт
         activityIndicator.startAnimating() //включаем анимацию
     }
     
     //функция скрытия индикатора загрузки
     private func hideLoadingIndicator() {
         activityIndicator.stopAnimating()  //выключаем анимацию
-        activityIndicator.isHidden = true  //говорим, что индикатор загрузки скрыт
+//        activityIndicator.isHidden = true  //говорим, что индикатор загрузки скрыт
     }
     
     //функция, которая показывает алерт в случае ошибки загрущкм данных с сети
@@ -116,12 +108,12 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         let alert = AlertModel(title: "Ошибка", message: message, buttonText: "Попробовать еще раз") { [ weak self ] in
             guard let self = self else { return }
             
-            self.currentQuestionIndex = 0
+            self.presenter.resetQuestionIndex()
             self.correctAnswers = 0
             
-            self.questionFactory?.requestNextQuestion()
+            self.questionFactory.requestNextQuestion()
         }
-        alertPresenter?.show(quiz: alert)
+        alertPresenter.show(quiz: alert)
     }
     
     
@@ -156,22 +148,20 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         yesButton.isEnabled = true
         noButton.isEnabled = true
         
-        if currentQuestionIndex == questionAmount - 1 {
-            statisticService?.store(correct: correctAnswers, total: questionAmount)
-            let text = correctAnswers == questionAmount ?
+        if presenter.isLastQuestion() {
+            statisticService.store(correct: correctAnswers, total: presenter.questionAmount)
+            let text = correctAnswers == presenter.questionAmount ?
             """
             Поздравляем, вы ответили на 10 из 10!
-            Количество сыгранных квизов: \(String(describing: statisticService!.gamesCount))
-            Рекорд: \(String(describing: statisticService!.bestGame.correct))/10 (\(String(describing: statisticService!.bestGame.date.dateTimeString)))
-            Средняя точность: \(String(format: "%.2f", statisticService!.totalAccuracy))%
+            Количество сыгранных квизов: \(String(describing: statisticService.gamesCount))
+            Рекорд: \(String(describing: statisticService.bestGame.correct))/10 (\(String(describing: statisticService.bestGame.date.dateTimeString)))
+            Средняя точность: \(String(format: "%.2f", statisticService.totalAccuracy))%
             """ :
-            
-            //на меня тут ругалось приложение и просила сделать либо принудительную распаковку, либо проставить, что это statisticServise - опционал. Принудительная помню, что не очень хорошо, но я не очень могу понять даже, почему тут просят распаковку((((
-            """
+                        """
             Ваш результат: \(correctAnswers)/10
-            Количество сыгранных квизов: \(String(describing: statisticService!.gamesCount))
-            Рекорд: \(String(describing: statisticService!.bestGame.correct))/10 (\(String(describing: statisticService!.bestGame.date.dateTimeString)))
-            Средняя точность: \(String(format: "%.2f", statisticService!.totalAccuracy))%
+            Количество сыгранных квизов: \(String(describing: statisticService.gamesCount))
+            Рекорд: \(String(describing: statisticService.bestGame.correct))/10 (\(String(describing: statisticService.bestGame.date.dateTimeString)))
+            Средняя точность: \(String(format: "%.2f", statisticService.totalAccuracy))%
             """
     
             let alertModel = AlertModel(
@@ -179,16 +169,16 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
                 message: text,
                 buttonText: "Сыграть ещё раз",
                 completion: { [weak self] in
-                    self?.currentQuestionIndex = 0
+                    self?.presenter.resetQuestionIndex()
                     self?.correctAnswers = 0
-                    self?.questionFactory?.requestNextQuestion()
+                    self?.questionFactory.requestNextQuestion()
                 })
             
-            self.alertPresenter?.show(quiz: alertModel)
+            self.alertPresenter.show(quiz: alertModel)
             
         } else {
-            currentQuestionIndex += 1
-            self.questionFactory?.requestNextQuestion()
+            presenter.switchToNextQuestion()
+            self.questionFactory.requestNextQuestion()
         }
         resetBorder()
     }
@@ -200,8 +190,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
     
     func didLoadDataFromServer() {
-        activityIndicator.isHidden = true
-        questionFactory?.requestNextQuestion()
+        hideLoadingIndicator()
+        questionFactory.requestNextQuestion()
     }
     
     func didFailToLoadData(with error: any Error) {
