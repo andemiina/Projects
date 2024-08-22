@@ -21,17 +21,17 @@
                                 <rect key="frame" x="20" y="57" width="350" height="753"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ohv-Vy-072">
-                                        <rect key="frame" x="0.0" y="0.0" width="350" height="23.333333333333332"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="350" height="23.666666666666668"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Вопрос:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tPi-VS-Z34" userLabel="Question Title Label">
-                                                <rect key="frame" x="0.0" y="0.0" width="309.66666666666669" height="23.333333333333332"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="314" height="23.666666666666668"/>
                                                 <color key="tintColor" name="YP White (iOS)"/>
                                                 <fontDescription key="fontDescription" name="YSDisplay-Medium" family="YS Display" pointSize="20"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="El6-Si-Hmi" userLabel="Index Label">
-                                                <rect key="frame" x="309.66666666666669" y="0.0" width="40.333333333333314" height="23.333333333333332"/>
+                                                <rect key="frame" x="314" y="0.0" width="36" height="23.666666666666668"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="Index"/>
                                                 <attributedString key="attributedText">
                                                     <fragment content="1/10">
@@ -47,7 +47,7 @@
                                         </subviews>
                                     </stackView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EKU-pT-wyY" userLabel="Preview Image">
-                                        <rect key="frame" x="0.0" y="43.333333333333314" width="350" height="525"/>
+                                        <rect key="frame" x="0.0" y="43.666666666666686" width="350" height="525"/>
                                         <color key="backgroundColor" name="YP White (iOS)"/>
                                         <accessibility key="accessibilityConfiguration" identifier="Poster"/>
                                         <constraints>
@@ -60,7 +60,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5by-5O-dLp" userLabel="Question Label">
-                                        <rect key="frame" x="0.0" y="588.33333333333337" width="350" height="84.666666666666629"/>
+                                        <rect key="frame" x="0.0" y="588.66666666666663" width="350" height="84.333333333333371"/>
                                         <attributedString key="attributedText">
                                             <fragment content="Рейтинг этого фильма меньше чем 5?">
                                                 <attributes>
