@@ -10,9 +10,6 @@ import UIKit
 
 final class MovieQuizPresenter: QuestionFactoryDelegate {
     
-    @IBOutlet private weak var yesButton: UIButton!
-    @IBOutlet private weak var noButton: UIButton!
-    
     
     private weak var viewController: MovieQuizViewControllerProtocol?
     private lazy var statisticService: StatisticServiceProtocol = StatisticService()
@@ -112,7 +109,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
             guard let self = self else {return}
-            enableButtons()
+            viewController?.enableButtons()
             self.proceedToNextQuestionOrResults()
         }
     }
@@ -150,11 +147,6 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
         ].joined(separator: "\n")
 
         return resultMessage
-    }
-    
-    func enableButtons() {
-        self.yesButton.isEnabled = true
-        self.noButton.isEnabled = true
     }
 }
     

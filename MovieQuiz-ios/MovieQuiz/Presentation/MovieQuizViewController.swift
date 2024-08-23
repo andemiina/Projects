@@ -115,7 +115,11 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
         imageView.layer.borderWidth = 8
         imageView.layer.borderColor = isCorrectAnswer ? UIColor.ypGreen.cgColor : UIColor.ypRed.cgColor
     }
-       
+    
+    func enableButtons() {
+        self.yesButton.isEnabled = true
+        self.noButton.isEnabled = true
     }
+}
 
 
