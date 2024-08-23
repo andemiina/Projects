@@ -12,7 +12,7 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
     
-    private var presenter: MovieQuizPresenter!
+    private var presenter: MovieQuizPresenter?
     
     // MARK: - LifeCycle
     override func viewDidLoad() {
@@ -26,14 +26,14 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
     
     //MARK: - Action
     @IBAction private func yesButtonClicked(_ sender: Any) {
-        presenter.yesButtonClicked()
+        presenter?.yesButtonClicked()
         yesButton.isEnabled = false
         noButton.isEnabled = false
     }
     
     
     @IBAction private func noButtonClicked(_ sender: Any) {
-        presenter.noButtonClicked()
+        presenter?.noButtonClicked()
         yesButton.isEnabled = false
         noButton.isEnabled = false
     }
@@ -58,7 +58,7 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
     }
     
     func show(quiz result: QuizResultsViewModel) {
-          let message = presenter.makeResultsMessage()
+          let message = presenter?.makeResultsMessage()
 
           let alert = UIAlertController(
               title: result.title,
@@ -69,7 +69,7 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
               let action = UIAlertAction(title: result.buttonText, style: .default) { [weak self] _ in
                   guard let self = self else { return }
 
-                  self.presenter.restartGame()
+                  self.presenter?.restartGame()
               }
         alert.view.accessibilityIdentifier = "Game results"
 
@@ -88,7 +88,7 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
         activityIndicator.stopAnimating()  //выключаем анимацию
     }
     
-    //функция, которая показывает алерт в случае ошибки загрущкм данных с сети
+    //функция, которая показывает алерт в случае ошибки загрузки данных с сети
     func showNetworkError(message: String) {
         hideLoadingIndicator()
         
@@ -98,7 +98,7 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
         { [ weak self ] _ in
             guard let self = self else { return }
             
-            self.presenter.resetQuestionIndex()
+            self.presenter?.resetQuestionIndex()
         }
         alert.addAction(action)
     }
@@ -116,11 +116,6 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
         imageView.layer.borderColor = isCorrectAnswer ? UIColor.ypGreen.cgColor : UIColor.ypRed.cgColor
     }
        
-    func enableButtons() {
-        self.yesButton.isEnabled = true
-        self.noButton.isEnabled = true
-    }
-    
     }
 
 
