@@ -1,9 +1,3 @@
-//
-//  ArrayTest.swift
-//  MovieQuizTests
-//
-//  Created by Анна Демина on 19.08.2024.
-//
 
 import Foundation
 import XCTest
@@ -11,26 +5,20 @@ import XCTest
 
 class ArrayTests: XCTestCase {
     func testGetValueInRange() throws {
-       //given
         let array = [1,1,2,3,5]
         
-        //when
         let value = array[safe: 2]
         
-        //then
         XCTAssertNotNil(value)
         XCTAssertEqual(value,2)
     }
     
     
     func testGetValueOutOfRange() throws {
-        //given
-         let array = [1,1,2,3,5]
+        let array = [1,1,2,3,5]
         
-        // When
-           let value = array[safe: 20]
+        let value = array[safe: 20]
         
-        // Then
-          XCTAssertNil(value)
+        XCTAssertNil(value)
     }
 }

@@ -1,9 +1,3 @@
-//
-//  MoviesLoaderTests.swift
-//  MovieQuizTests
-//
-//  Created by Анна Демина on 19.08.2024.
-//
 
 import Foundation
 import XCTest
@@ -11,17 +5,12 @@ import XCTest
 
 class MoviesLoaderTests: XCTestCase {
     func testSuccessLoading() {
-        //given
         let stubNetworkClient = StubNetworkClient(emulateError: false)
         let loader = MoviesLoader(networkClient: stubNetworkClient)
         
-        //when
-        
-        //тк функция загрузки фильмов ассинзронная нужно ожидание
         let expectation = expectation(description: "Loading expectation")
         
         loader.loadMovies { result in
-            //then
             switch result {
             case .success(let movies):
                 XCTAssertEqual(movies.items.count, 2)
@@ -34,15 +23,12 @@ class MoviesLoaderTests: XCTestCase {
     }
     
     func testFailureLoading() {
-        //given
         let stubNetworkClient = StubNetworkClient(emulateError: true)
         let loader = MoviesLoader(networkClient: stubNetworkClient)
         
-        //when
         let expectation = expectation(description: "Error expectation")
         
         loader.loadMovies { result in
-            //then
             switch result {
             case .success(_):
                 XCTFail("Unexpected success")
@@ -59,11 +45,11 @@ class MoviesLoaderTests: XCTestCase {
 
 struct StubNetworkClient: NetworkRouting {
     
-    enum TestError: Error { // тестовая ошибка
+    enum TestError: Error {
     case test
     }
     
-    let emulateError: Bool // этот параметр нужен, чтобы заглушка эмулировала либо ошибку сети, либо успешный ответ
+    let emulateError: Bool 
     
     func fetch(url: URL, handler: @escaping (Result<Data, Error>) -> Void) {
         if emulateError {

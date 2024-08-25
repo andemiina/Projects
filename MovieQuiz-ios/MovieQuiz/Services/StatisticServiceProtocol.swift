@@ -1,9 +1,4 @@
-//
-//  StatisticServiceProtocol.swift
-//  MovieQuiz
-//
-//  Created by Анна Демина on 12.08.2024.
-//
+
 
 import Foundation
 

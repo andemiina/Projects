@@ -1,26 +1,17 @@
-//
-//  MovieQuizUITests.swift
-//  MovieQuizUITests
-//
-//  Created by Анна Демина on 19.08.2024.
-//
+
 
 import XCTest
 
 final class MovieQuizUITests: XCTestCase {
     
-    //эта переменная символизирует приложение, которое мы тестируем
     var app: XCUIApplication!
 
     override func setUpWithError() throws {
         try super.setUpWithError()
-        //чтобы быть уверенными, что эта переменная будет проинициализирована на момент использования
+       
         app = XCUIApplication()
-        //откроет приложение
         app.launch()
         
-        // это специальная настройка для тестов: если один тест не прошёл,
-                // то следующие тесты запускаться не будут
         continueAfterFailure = false
 
     }
@@ -28,7 +19,6 @@ final class MovieQuizUITests: XCTestCase {
     override func tearDownWithError() throws {
         try super.tearDownWithError()
         
-        //закроет приложение
         app.terminate()
         app = nil
     }
@@ -41,36 +31,36 @@ final class MovieQuizUITests: XCTestCase {
     
     func testYesButtom() {
         sleep(3)
-        let firstPoster = app.images["Poster"] //находим первый постер
+        let firstPoster = app.images["Poster"] 
         let firstPosterData = firstPoster.screenshot().pngRepresentation
-        
-        app.buttons["Yes"].tap() //находим кноку да и нажимаем ее
+
+        app.buttons["Yes"].tap()
         sleep(3)
         
-        let secondPoster = app.images["Poster"] //еще раз находим постер
+        let secondPoster = app.images["Poster"]
         let secondPosterData = secondPoster.screenshot().pngRepresentation
         
         let indexLabel = app.staticTexts["Index"]
         
-        XCTAssertNotEqual(firstPosterData, secondPosterData) //проверяем, что постеры разные
+        XCTAssertNotEqual(firstPosterData, secondPosterData)
         XCTAssertEqual(indexLabel.label, "2/10")
         
     }
  
     func testNoButtom() {
         sleep(3)
-        let firstPoster = app.images["Poster"] //находим первый постер
+        let firstPoster = app.images["Poster"]
         let firstPosterData = firstPoster.screenshot().pngRepresentation
         
-        app.buttons["No"].tap() //находим кноку нет и нажимаем ее
+        app.buttons["No"].tap()
         sleep(3)
         
-        let secondPoster = app.images["Poster"] //еще раз находим постер
+        let secondPoster = app.images["Poster"] 
         let secondPosterData = secondPoster.screenshot().pngRepresentation
         
         let indexLabel = app.staticTexts["Index"]
         
-        XCTAssertNotEqual(firstPosterData, secondPosterData) //проверяем, что постеры разные
+        XCTAssertNotEqual(firstPosterData, secondPosterData) 
         XCTAssertEqual(indexLabel.label, "2/10")
     }
     

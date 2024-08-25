@@ -1,10 +1,3 @@
-//
-//  MovieQuizPresenterTests.swift
-//  MovieQuizPresenterTests
-//
-//  Created by Анна Демина on 21.08.2024.
-//
-
 
 import XCTest
 
@@ -12,15 +5,13 @@ import XCTest
 
 final class MovieQuizViewControllerMock: MovieQuizViewControllerProtocol {
     func show(quiz step: QuizStepViewModel) { }
-       func show(quiz result: QuizResultsViewModel) { }
-       
-       func highlightImageBorder(isCorrectAnswer: Bool) { }
-       
-       func showLoadingIndicator() { }
-       func hideLoadingIndicator() { }
-       
-       func showNetworkError(message: String) { }
-       func enableButtons() { } 
+    func show(quiz result: QuizResultsViewModel) { }
+    func highlightImageBorder(isCorrectAnswer: Bool) { }
+    func showLoadingIndicator() { }
+    func hideLoadingIndicator() { }
+    func showNetworkError(message: String) { }
+    func enableButtons() { }
+    func disableButtons() { }
 }
 
 final class MovieQuizPresenterTests: XCTestCase {

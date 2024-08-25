@@ -27,18 +27,16 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
     //MARK: - Action
     @IBAction private func yesButtonClicked(_ sender: Any) {
         presenter?.yesButtonClicked()
-        yesButton.isEnabled = false
-        noButton.isEnabled = false
+        disableButtons()
     }
     
     
     @IBAction private func noButtonClicked(_ sender: Any) {
         presenter?.noButtonClicked()
-        yesButton.isEnabled = false
-        noButton.isEnabled = false
+        disableButtons()
     }
     
-    //MARK: - Private Funcs
+    //MARK: - Funcs
     
     private func setupFonts() {
         textLabel.font = UIFont(name: "YSDisplay-Bold", size: 23)
@@ -78,17 +76,14 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
           self.present(alert, animated: true, completion: nil)
       }
   
-    //функция показа индикатора загрузки
     func showLoadingIndicator() {
-        activityIndicator.startAnimating() //включаем анимацию
+        activityIndicator.startAnimating()
     }
     
-    //функция скрытия индикатора загрузки
     func hideLoadingIndicator() {
-        activityIndicator.stopAnimating()  //выключаем анимацию
+        activityIndicator.stopAnimating()
     }
     
-    //функция, которая показывает алерт в случае ошибки загрузки данных с сети
     func showNetworkError(message: String) {
         hideLoadingIndicator()
         
@@ -120,6 +115,12 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
         self.yesButton.isEnabled = true
         self.noButton.isEnabled = true
     }
+    
+    func disableButtons() {
+        self.yesButton.isEnabled = false
+        self.noButton.isEnabled = false
+    }
+    
 }
 
 
